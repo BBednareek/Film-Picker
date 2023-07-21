@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "278681387349",
-    "firebase_url": "https://filmapp-f9a0b-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "filmapp-f9a0b",
-    "storage_bucket": "filmapp-f9a0b.appspot.com"
+    "project_number": "356890927280",
+    "project_id": "film-picker-e3075",
+    "storage_bucket": "film-picker-e3075.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:278681387349:android:2b0223943f127a61176fdc",
+        "mobilesdk_app_id": "1:356890927280:android:6f20f6d1b8c07921995b75",
         "android_client_info": {
           "package_name": "com.example.filmapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "278681387349-3o8jdf68dairs323oa617gscka8vrj4n.apps.googleusercontent.com",
+          "client_id": "356890927280-ok4eenlde1vemue5njr6r536su1933pt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAe04gfrprePnS68ukLhoHFIOjytESnRcY"
+          "current_key": "AIzaSyAPoelm406tNnzQxX1VG7MxoB_0hYouNSg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "278681387349-3o8jdf68dairs323oa617gscka8vrj4n.apps.googleusercontent.com",
+              "client_id": "356890927280-ok4eenlde1vemue5njr6r536su1933pt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

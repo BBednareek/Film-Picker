@@ -1,39 +1,24 @@
-import 'dart:async';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:filmapp/screens/user/login/login_screen.dart';
+import 'package:filmapp/screens/auth_helper/auth_helper.dart';
+import 'package:filmapp/screens/user/login/forgot_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:filmapp/screens/auth_helper/auth_helper.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  bool isRegistered = false;
+class _LoginScreenState extends State<LoginScreen> {
   String name = 'Film Picker';
   String textOne = 'Wieczór przy filmie?';
   String textTwo = 'Wybierz seans na zasadach matchingu!';
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _passwordRepeatController = TextEditingController();
-
-  showSucessfulDialog() {
-    setState(() {
-      isRegistered = true;
-    });
-    Timer(const Duration(seconds: 2), () {
-      setState(() {
-        isRegistered = false;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +26,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Stack(
         children: [
           Column(
@@ -82,42 +73,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 40),
                 child: SizedBox(
-                    width: screenWidth * .5, height: screenHeight * .06),
+                  width: screenWidth * .5,
+                  height: screenHeight * .06,
+                ),
               ),
               const SizedBox(height: 65),
               inputEmail(
                   _emailController, 'Adres e-mail', 'Podaj adres e-mail'),
               const SizedBox(height: 16),
               inputPassword(_passwordController, 'Hasło', 'Podaj hasło'),
-              const SizedBox(height: 16),
-              inputPassword(_passwordRepeatController, 'Podaj ponownie hasło',
-                  'Podaj ponownie hasło'),
               TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        'Masz już konto? Zaloguj się!',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontFamily: 'Audiowide',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPassword()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Text(
+                          'Zapomniałem hasła',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontFamily: 'Audiowide'),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              overlay(isRegistered),
-              successful(isRegistered)
+                      ],
+                    ),
+                  )),
             ],
           ),
         ],
@@ -127,52 +113,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: InkWell(
           onTap: () async {
             if (_emailController.text.trim().isEmpty ||
-                _passwordController.text.trim().isEmpty ||
-                _passwordRepeatController.text.trim().isEmpty) {
+                _passwordController.text.trim().isEmpty) {
               showDialog(
                   context: context,
                   builder: (context) =>
                       dialog('Żadne pole nie może być puste!'));
-            } else if (_passwordController.text.trim() !=
-                    _passwordRepeatController.text.trim() ||
-                _passwordController.text.trim().length < 6) {
+            } else if (_passwordController.text.trim().length < 6) {
               showDialog(
-                context: context,
-                builder: (context) => dialog(
-                    'Podane hasło jest za krótkie, bądź podane hasła nie są takie same!'),
-              );
+                  context: context,
+                  builder: (context) => dialog(
+                      'Podane hasło jest za krótkie, bądź podane hasła nie są takie same!'));
             } else if (_emailController.text.trim().isNotEmpty &&
                 _passwordController.text.trim().isNotEmpty &&
-                _passwordRepeatController.text.trim().isNotEmpty &&
-                _passwordController.text.trim() ==
-                    _passwordRepeatController.text.trim() &&
                 _passwordController.text.trim().length > 6) {
               try {
-                await AuthHelper.signupWithEmail(
-                  email: _emailController.text.trim(),
-                  password: _passwordController.text.trim(),
-                );
+                await AuthHelper.signInWithEmail(
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim());
                 if (!mounted) return;
               } on FirebaseAuthException catch (e) {
+                if (e.code == 'wrong-password') {
+                  showDialog(
+                      context: context,
+                      builder: (context) => dialog('Nieprawidłowe hasło!'));
+                }
                 if (e.code == 'invalid-email') {
                   showDialog(
-                    context: context,
-                    builder: (context) => dialog(
-                        'Podany e-mail jest nieprawidłowo sformatowany!'),
-                  );
+                      context: context,
+                      builder: (context) => dialog('Nieprawidłowy e-mail!'));
                 }
-                if (e.code == 'email-already-in-use') {
+                if (e.code == 'user-not-found') {
                   showDialog(
-                    context: context,
-                    builder: (context) => dialog(
-                        'Podany adres mailowy istnieje już w naszej bazie!'),
-                  );
-                }
-                if (e.code == 'weak-password') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => dialog('Zbyt słabe hasło!'),
-                  );
+                      context: context,
+                      builder: (context) =>
+                          dialog('Nie znaleziono użytkownika w naszej bazie!'));
                 }
               }
             }
@@ -182,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             width: screenWidth,
             child: const Center(
               child: Text(
-                'Zarejestruj się',
+                'Zaloguj się',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
@@ -240,35 +214,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget overlay(bool isSuccessful) => isSuccessful
-      ? Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.black.withOpacity(.2),
-        )
-      : Container();
-
-  Widget successful(bool isSuccessful) => isSuccessful
-      ? Container(
-          width: 150,
-          height: 150,
-          padding: const EdgeInsets.all(24),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(200),
-          ),
-          child: const Text(
-            'Successful registration!',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontFamily: 'Audiowide',
-            ),
-          ),
-        )
-      : Container();
-
   Widget dialog(String alert) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
@@ -290,6 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: () {

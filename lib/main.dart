@@ -1,4 +1,4 @@
-import 'package:filmapp/screens/user/register/register_screen.dart';
+import 'package:filmapp/screens/user/main/checker.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +32,7 @@ class _FilmAppState extends State<FilmApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: title,
-      home: const RegisterScreen(),
+      home: const Checker(),
     );
   }
 }
