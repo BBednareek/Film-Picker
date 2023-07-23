@@ -9,17 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  animated_text_kit:
-  firebase_core:
-  cloud_firestore:
-  device_info:
-  firebase_database:
-  firebase_auth:
-  url_launcher:
-  email_validator:
-  flutter_svg:
+
   intl:
-  package_info:
+  shared_preferences:
+
+  cloud_firestore:
+  firebase_core:
+  firebase_auth:
+  firebase_storage:
 
   cupertino_icons: ^1.0.2
 
@@ -33,4 +30,14 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  
+  assets:
+    - images/
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: fonts/Nunito-regular.ttf
+        - asset: fonts/Nunito-SemiBold.ttf
+        - asset: fonts/Nunito-Bold.ttf
 
