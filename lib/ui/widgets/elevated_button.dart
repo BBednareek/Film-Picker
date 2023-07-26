@@ -12,7 +12,7 @@ class ElevatedButtonWidget extends StatelessWidget {
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
       disabledForegroundColor: kAccentColor.withOpacity(.25),
       padding: const EdgeInsets.symmetric(vertical: 14),
-      side: const BorderSide(color: kSecondayColor, width: 2),
+      side: const BorderSide(color: kSecondaryColor, width: 2),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)));
 

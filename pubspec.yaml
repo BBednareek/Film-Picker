@@ -12,6 +12,9 @@ dependencies:
 
   intl:
   shared_preferences:
+  provider:
+  percent_indicator:
+  image_picker:
 
   cloud_firestore:
   firebase_core:

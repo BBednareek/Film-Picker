@@ -4,7 +4,7 @@ class AppUser {
   late String id;
   late String name;
   late String profilePhotoPath;
-  String bio = '';
+  late String bio;
 
   AppUser({required this.id, required this.name, profilePhotoPath, bio});
 
@@ -12,7 +12,7 @@ class AppUser {
     id = snapshot['id'];
     name = snapshot['name'];
     profilePhotoPath = snapshot['profile_photo_path'];
-    bio = snapshot.get('bio') ?? '';
+    bio = snapshot.get('bio');
   }
 
   Map<String, dynamic> toMap() {

@@ -23,7 +23,7 @@ class BorderedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = kSecondayColor;
+    Color color = kSecondaryColor;
     return TextField(
       controller: textController,
       onChanged: onChanged,
@@ -34,7 +34,7 @@ class BorderedTextField extends StatelessWidget {
       style: TextStyle(color: color),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(color: kSecondayColor.withOpacity(.5)),
+        labelStyle: TextStyle(color: kSecondaryColor.withOpacity(.5)),
         border: const UnderlineInputBorder(),
         enabledBorder:
             UnderlineInputBorder(borderSide: BorderSide(color: color)),
