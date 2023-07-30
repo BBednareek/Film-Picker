@@ -1,6 +1,9 @@
 import 'package:filmapp/data/db/remote/response.dart';
 import 'package:filmapp/data/model/user_registration.dart';
 import 'package:filmapp/data/provider/user_provider.dart';
+import 'package:filmapp/ui/screens/register_sub_screens/add_photo_screen.dart';
+import 'package:filmapp/ui/screens/register_sub_screens/email_and_password_screen.dart';
+import 'package:filmapp/ui/screens/register_sub_screens/name_screen.dart';
 import 'package:filmapp/ui/screens/start_screen.dart';
 import 'package:filmapp/ui/screens/top_navigation_screen.dart';
 import 'package:filmapp/ui/widgets/custom_modal_progress_hud.dart';

@@ -3,7 +3,7 @@ import 'package:filmapp/data/db/entity/app_user.dart';
 import 'package:filmapp/data/db/entity/chat.dart';
 import 'package:filmapp/data/db/entity/message.dart';
 import 'package:filmapp/data/db/remote/firebase_database_source.dart';
-import 'package:filmapp/ui/widgets/chats_list.dart';
+import 'package:filmapp/ui/widgets/chat_top_bar.dart';
 import 'package:filmapp/ui/widgets/message_bubble.dart';
 import 'package:filmapp/util/constants.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +44,7 @@ class ChatScreen extends StatelessWidget {
         miliHalfHour) {
       return true;
     }
+    // ignore: unnecessary_null_comparison
     return messageBefore == null;
   }
 

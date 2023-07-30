@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   ElevatedButtonWidget({
     super.key,
     required this.text,

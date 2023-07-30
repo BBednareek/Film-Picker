@@ -3,13 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesUtil {
   static const String keyUserID = 'KEY_USER_ID';
 
-  static Future<String> getUserId() async {
+  static Future<String?> getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString(keyUserID);
-    if (userId == null) {
-      throw Exception('User ID not available.');
-    }
-    return userId;
+    return prefs.getString(keyUserID);
   }
 
   static Future<void> setUserId(String id) async {

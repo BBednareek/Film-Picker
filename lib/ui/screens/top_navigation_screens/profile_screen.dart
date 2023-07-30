@@ -1,5 +1,6 @@
 import 'package:filmapp/data/db/entity/app_user.dart';
 import 'package:filmapp/data/provider/user_provider.dart';
+import 'package:filmapp/ui/screens/start_screen.dart';
 import 'package:filmapp/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:filmapp/ui/widgets/elevated_button.dart';
 import 'package:filmapp/ui/widgets/elevated_icon_button.dart';
@@ -38,8 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               future: userProvider.user,
               builder: (context, userSnapshot) {
                 return CustomModalProgressHUD(
-                  inAsyncCall:
-                      userProvider.user == null || userProvider.isLoading,
+                  inAsyncCall: userProvider.isLoading,
                   offset: Offset.zero,
                   child: userSnapshot.hasData
                       ? Column(

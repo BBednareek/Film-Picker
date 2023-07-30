@@ -61,8 +61,8 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<AppUser> _getUser() async {
-    String id = await SharedPreferencesUtil.getUserId();
-    _user = AppUser.fromSnapshot(await _databaseSource.getUser(id));
+    String? id = await SharedPreferencesUtil.getUserId();
+    _user = AppUser.fromSnapshot(await _databaseSource.getUser(id!));
     return _user;
   }
 

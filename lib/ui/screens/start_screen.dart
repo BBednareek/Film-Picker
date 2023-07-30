@@ -1,7 +1,7 @@
 import 'package:filmapp/ui/screens/login_screen.dart';
+import 'package:filmapp/ui/screens/register_screen.dart';
 import 'package:filmapp/ui/widgets/app_image_with_text.dart';
 import 'package:filmapp/ui/widgets/elevated_button.dart';
-import 'package:filmapp/ui/widgets/rounded_outlined_button.dart';
 import 'package:filmapp/util/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -21,15 +21,6 @@ class StartScreen extends StatelessWidget {
               children: [
                 const AppIconTitle(),
                 Expanded(child: Container()),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Lorel ipsum dolor sit amet, consectetur adipiscing elit. '
-                    'Nulla in orci justo. Curabitur ac gravida quam.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
                 const SizedBox(height: 60),
                 ElevatedButtonWidget(
                     text: 'CREATE ACCOUNT',
@@ -38,7 +29,7 @@ class StartScreen extends StatelessWidget {
                       Navigator.pushNamed(context, RegisterScreen.id);
                     }),
                 const SizedBox(height: 20),
-                RoundedOutlinedButton(
+                ElevatedButtonWidget(
                     text: 'LOGIN',
                     onPressed: () =>
                         Navigator.pushNamed(context, LoginScreen.id))
